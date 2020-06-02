@@ -1,0 +1,80 @@
+<div class="mx-auto" style="width: 50em; padding: 1%;">
+    <div class="card" style="width: 50rem; height: 35rem">
+        <div class="card-header">
+            <h4>Documents</h4>
+        </div>
+        <div class="overflow-auto" style="background-color:#F5EDFF;height:100%;">
+        
+            <div class="card-body" style="background-color:#F5EDFF;height:100%;">
+                
+                <div class="d-flex justify-content-center">
+                    <div [hidden]="!loading" class="spinner-grow" style="width: 6rem; height: 6rem;" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+                <div [hidden]="loading" class="container">
+                    <ng-template ngFor let-item [ngForOf]="fileDataList" let-i="index">
+                    <div class="row" style="margin: 15px;">            
+                        <div  *ngIf="(i+1)%2==0; else elseBlock" class="card border-success" style="width: 100%; ">
+                            <div class="card-body" >
+                                {{item.name}}
+                                <div class="float-right">
+                                    <button type="button" (click)="download(item.id, item.name)" class="btn btn-outline-success">Download</button>
+                                </div>                                                         
+                            </div>
+                            <div class="card-footer">
+                                {{item.uploadDate | date:'longDate'}}
+                                | {{item.user["email"]}}
+                                <div class="float-right">
+                                    <button type="button" (click)="deleteFile(item.id)"  class="btn btn-outline-danger btn-sm">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ng-template #elseBlock>
+                            <div class="card border-primary " style="width: 100%; ">
+                                <div class="card-body">
+                                    {{item.name}}       
+                                    <div class="float-right">
+                                        <button type="button" (click)="download(item.id, item.name)" class="btn btn-outline-primary">Download</button>
+                                    </div>                         
+                                </div>
+                                <div class="card-footer">
+                                    {{item.uploadDate | date:'longDate'}}
+                                    | {{item.user["email"]}}
+                                <div class="float-right">
+                                    <button type="button" (click)="deleteFile(item.id)" class="btn btn-outline-danger btn-sm">Delete</button>
+                                </div>
+                            </div>
+                            </div>
+                        </ng-template>
+                    </div>
+                    </ng-template>  
+                </div>
+            </div>
+            
+        </div>
+        <div class="card-footer">
+                <div class="container">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" [disabled]="fileIsUploading" (click)="pseudoClick()" style="width: 9rem; border: 1px;"class="btn btn-warning">
+                                    Upload file
+                                    <span class="spinner-border spinner-border-sm"  role="status" [hidden]="!fileIsUploading"></span>
+                                </button>
+                                <input id="fileUploader" type="file" name="file" (change)="uploadFile($event.target.files)" [hidden]="true">
+                            </div>
+                            <div class="col">
+                                <button type="button" (click)="settings()" style="width: 9rem; border: 1px;"class="btn btn-info">Settings</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" (click)="updateFileList()"style="width: 9rem; border: 1px;"class="btn btn-success">Update</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

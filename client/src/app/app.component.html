@@ -1,0 +1,19 @@
+
+<nav class="navbar navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="https://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/512/document-icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      NyafStorage
+    </a>
+    <form [hidden]="!userIsLogged()">
+      <span id="loggedUserName"class="navbar-text">
+        {{getUser()?.email}}
+      </span>
+      <button style="margin: 5px;" (click)="logout()" class="btn btn-outline-danger" type="button">Logout</button>
+    </form>
+</nav>
+
+
+
+<router-outlet></router-outlet>
+<notifier-container></notifier-container>
+
